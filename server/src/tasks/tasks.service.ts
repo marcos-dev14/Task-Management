@@ -27,10 +27,24 @@ export class TasksService {
     }
   }
 
-  async findAllTasks(userId: string): Promise<TaskDto[]> {
+  async findAllTasks(
+    userId: string,
+    filters?: {
+      status?: string;
+      date?: Date;
+      title?: string;
+    },
+  ): Promise<TaskDto[]> {
+    const { status, date, title } = filters || {};
+
     const tasks = await this.prisma.task.findMany({
-      where: { userId }
-    })
+      where: {
+        userId,
+        ...(status && { status }),
+        ...(date && { date }),
+        ...(title && { title: { contains: title, mode: 'insensitive' } }),
+      },
+    });
 
     return tasks.map((task) => ({
       id: task.id,
@@ -40,7 +54,7 @@ export class TasksService {
       status: task.status,
       created_at: task.created_at,
       updated_at: task.updated_at,
-    }))
+    }));
   }
 
   async findTaskById(userId: string, taskId: string): Promise<TaskDto> {

@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Get, Param, Put, Delete, UseGuards, Req } from "@nestjs/common";
+import { Body, Controller, Post, Get, Param, Put, Delete, UseGuards, Req, Query } from "@nestjs/common";
 import { TasksService } from "./tasks.service";
 import { CreateTaskDto } from "./dto/create-task.dto";
 import { UpdateTaskDto } from "./dto/update-task.dto";
@@ -23,8 +23,19 @@ export class TasksController {
   @Get()
   @ApiOperation({ summary: 'Listar todas as tarefas do usuário' })
   @ApiResponse({ status: 200, description: 'Lista de tarefas', type: [TaskDto] })
-  async findAllTasks(@Req() req): Promise<TaskDto[]> {
-    return this.tasksService.findAllTasks(req.user.id);
+  async findAllTasks(
+    @Req() req,
+    @Query('status') status?: string,
+    @Query('date') date?: string,
+    @Query('title') title?: string,
+  ): Promise<TaskDto[]> {
+    const filters = {
+      ...(status && { status }),
+      ...(date && { date: new Date(date) }),
+      ...(title && { title }),
+    };
+
+    return this.tasksService.findAllTasks(req.user.id, filters);
   }
 
   @Get(':id')
