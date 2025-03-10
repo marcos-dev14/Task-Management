@@ -1,10 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { PrismaService } from "../prisma/prisma.service";
 import * as bcrypt from "bcrypt";
-import { RegisterDto } from './dto/register.dto';
-import { AuthResponseDto } from './dto/auth-response.dto';
-import { UserDto } from './dto/user.dto';
+import { RegisterDto } from "./dto/register.dto";
+import { AuthResponseDto } from "./dto/auth-response.dto";
+import { UserDto } from "./dto/user.dto";
 
 @Injectable()
 export class AuthService {
@@ -17,13 +17,13 @@ export class AuthService {
     const user = await this.prisma.user.findUnique({ where: { email } });
 
     if (!user) {
-      throw new Error('Credenciais inválidas');
+      throw new UnauthorizedException('Credenciais inválidas');
     }
 
     const isPasswordValid = await bcrypt.compare(pass, user.password);
 
     if (!isPasswordValid) {
-      throw new Error('Credenciais inválidas');
+      throw new UnauthorizedException('Credenciais inválidas');
     }
 
     return new UserDto(user);

@@ -1,8 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { CreateTaskDto } from './dto/create-task.dto';
-import { TaskDto } from './dto/task.dto';
-import { UpdateTaskDto } from './dto/update-task.dto';
+import { Injectable, UnauthorizedException } from "@nestjs/common";
+import { CreateTaskDto } from "./dto/create-task.dto";
+import { TaskDto } from "./dto/task.dto";
+import { UpdateTaskDto } from "./dto/update-task.dto";
+import { PrismaService } from "../prisma/prisma.service"
 
 @Injectable()
 export class TasksService {
@@ -63,7 +63,7 @@ export class TasksService {
     })
 
     if (!task) {
-      throw new Error('Tarefa não encontrada');
+      throw new UnauthorizedException('Tarefa não encontrada');
     }
 
     return {
@@ -83,7 +83,7 @@ export class TasksService {
     })
 
     if (!existingTask) {
-      throw new Error('Tarefa não encontrada');
+      throw new UnauthorizedException('Tarefa não encontrada');
     }
 
     const updatedTask = await this.prisma.task.update({
@@ -109,7 +109,7 @@ export class TasksService {
     });
 
     if (!task) {
-      throw new Error('Tarefa não encontrada');
+      throw new UnauthorizedException('Tarefa não encontrada');
     }
 
     await this.prisma.task.delete({
