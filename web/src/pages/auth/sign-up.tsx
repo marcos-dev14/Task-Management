@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom"
 import { useMutation } from "@tanstack/react-query"
 import { z } from "zod"
 import { toast } from "sonner"
+import Cookies from "js-cookie"
 
 import { signUp } from "@/api/sign-up"
 
@@ -11,11 +12,14 @@ import type { signUpForm } from "@/schemas/sign-up"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { useEffect } from "react"
 
 type SignUpForm = z.infer<typeof signUpForm>
 
 export function SignUp() {
   const navigate = useNavigate()
+
+  const token = Cookies.get("user_token")
 
   const {
     register,
@@ -44,6 +48,12 @@ export function SignUp() {
       console.error(error)
     }
   }
+
+  useEffect(() => {
+    if (token) {
+      navigate("/", { replace: true })
+    }
+  },[token])
 
   return (
     <main className="w-full h-screen flex items-center justify-center lg: px-4">
