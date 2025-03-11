@@ -1,15 +1,13 @@
-import { ToggleTheme } from "./components/toggle-theme"
 import "./styles/global.css"
+
+import { ThemeProvider } from "./context/theme"
+import { RouterProvider } from 'react-router-dom'
+import { router } from './routes/index.tsx'
 
 export function App() {
   return (
-    <div className="w-full h-screen bg-background flex items-center justify-center">
-
-      <h1 className="font-sans font-bold text-2xl text-primary">
-        Marcos Paulo
-      </h1>
-
-      <ToggleTheme />
-    </div>
+    <ThemeProvider>
+      <RouterProvider router={router} />
+    </ThemeProvider>
   )
 }
