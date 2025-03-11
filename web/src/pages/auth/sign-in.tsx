@@ -64,7 +64,7 @@ export function SignIn() {
   },[token])
 
   return (
-    <main className="w-full h-screen flex items-center justify-center lg: px-4">
+    <div className="w-full h-screen flex items-center justify-center lg: px-4">
       <div className="max-w-[740px] w-full flex flex-col px-4 py-8 rounded-xl border border-accent">
         <h3 className="text-2xl text-primary font-bold font-heading">
           Faça seu login
@@ -109,6 +109,6 @@ export function SignIn() {
           </p>
         </form>
       </div>
-    </main>
+    </div>
   )
 }
