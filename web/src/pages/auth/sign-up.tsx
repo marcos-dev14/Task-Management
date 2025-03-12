@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { Link, useNavigate } from "react-router-dom"
 import { useMutation } from "@tanstack/react-query"
@@ -12,7 +13,6 @@ import type { signUpForm } from "@/schemas/sign-up"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useEffect } from "react"
 
 type SignUpForm = z.infer<typeof signUpForm>
 
@@ -94,7 +94,7 @@ export function SignUp() {
 
             <Input 
               id="password" 
-              placeholder="digite sua senha" 
+              placeholder="Digite sua senha" 
               type="password" 
               {...register("password")}
             />

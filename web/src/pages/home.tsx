@@ -1,15 +1,27 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import Cookies from "js-cookie"
+import { useQuery } from "@tanstack/react-query"
 import { Plus } from "lucide-react"
+
+import { getTasks } from "@/api/task"
 
 import { Button } from "@/components/ui/button"
 import { TaskCard } from "@/components/task-card"
+import { Dialog, DialogTrigger } from "@/components/ui/dialog"
+import { CreateTaskForm } from "@/components/create-task-form"
 
 export function Home() {
+  const [createTaskOpen, setCreateTaskOpen] = useState(false)
+
   const token = Cookies.get("user_token")
 
   const navigate = useNavigate()
+
+  const { data: tasks } = useQuery({
+    queryKey: ['tasks'],
+    queryFn: getTasks
+  })
 
   useEffect(() => {
     if (!token) {
@@ -26,15 +38,23 @@ export function Home() {
               Suas tarefas
             </h1>
 
-            <Button>
-              Nova Tarefa
+            <Dialog open={createTaskOpen} onOpenChange={setCreateTaskOpen}>
+              <DialogTrigger asChild>
+                <Button>
+                  Nova Tarefa
 
-              <Plus className="w-4 h-4" />
-            </Button>
+                  <Plus className="w-4 h-4" />
+                </Button>
+              </DialogTrigger>
+
+              <CreateTaskForm />
+            </Dialog>
           </div>
 
-          <div className="max-w-[900px] w-full shadow bg-gray-200 px-3 py-6 rounded-sm space-y-4 s overflow-y-auto">
-            <TaskCard />
+          <div className="max-w-[700px] w-full shadow bg-gray-200 px-3 py-6 rounded-sm space-y-4 s overflow-y-auto">
+            {tasks?.map((task) => (
+              <TaskCard key={task.id} task={task} />
+            ))}	
           </div>
         </div>
       </div>

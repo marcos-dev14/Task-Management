@@ -22,7 +22,10 @@ export function UserProvider({ children }: UserProviderProps) {
   const [user, setUser] = useState<UserProps | null>(null)
 
   function loginUser(token: string) {
-    Cookies.set("user_token", token, { expires: 2 }) // Expira em 2 horas
+    const expirationDate = new Date();
+    expirationDate.setTime(expirationDate.getTime() + 2 * 60 * 60 * 1000) // 2 horas
+
+    Cookies.set("user_token", token, { expires: expirationDate }) // Expira em 2 horas
     setUser({ token })
   }
 

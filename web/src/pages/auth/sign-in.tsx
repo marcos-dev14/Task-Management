@@ -1,3 +1,4 @@
+import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { useMutation } from "@tanstack/react-query"
@@ -13,7 +14,6 @@ import type { signInForm } from "@/schemas/sign-in"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { useEffect } from "react"
 
 type SignInForm = z.infer<typeof signInForm>
 
@@ -80,7 +80,7 @@ export function SignIn() {
 
             <Input 
               id="email" 
-              placeholder="Digite o seu e-mail" 
+              placeholder="Digite seu e-mail" 
               type="email" 
               {...register("email")}
             />
@@ -91,7 +91,7 @@ export function SignIn() {
 
             <Input 
               id="password" 
-              placeholder="digite a sua senha" 
+              placeholder="Digite sua senha" 
               type="password" 
               {...register("password")}
             />
