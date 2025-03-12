@@ -118,7 +118,7 @@ export function UpdateTaskForm({ taskId }: UpdateTaskFormProps) {
           <Label htmlFor="date">Data de inicio da tarefa</Label>
 
           <Input 
-            className="w-auto"
+           className="w-[200px] max-md:w-auto"
             id="date" 
             type="datetime-local" 
             {...register("date")}

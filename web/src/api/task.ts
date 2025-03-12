@@ -19,8 +19,6 @@ export interface TaskBody {
 }
 
 export async function createTask(createTask: TaskBody) {
-  console.log("DADOS: ", createTask)
-
   try {
     const response = await api.post('/tasks', createTask)
   

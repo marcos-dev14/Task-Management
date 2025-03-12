@@ -1,6 +1,7 @@
 import { useForm, Controller } from "react-hook-form"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { toast } from "sonner"
 
 import { createTask } from "@/api/task"
@@ -23,8 +24,10 @@ export function CreateTaskForm() {
     register,
     handleSubmit,
     reset,
-    formState: { isSubmitting },
-  } = useForm<CreateTaskForm>()
+    formState: { isSubmitting, errors },
+  } = useForm<CreateTaskForm>({
+    resolver: zodResolver(createTaskSchema),
+  })
 
   const queryClient = useQueryClient()
 
@@ -74,7 +77,12 @@ export function CreateTaskForm() {
             id="title" 
             type="text" 
             {...register("title")}
+            className={errors.title && 'border-red-400'}
           />
+
+          {errors.title && (
+            <p className="text-sm text-red-500">{errors.title.message}</p>
+          )}
         </div>
 
         <div className="space-y-2">
@@ -90,11 +98,15 @@ export function CreateTaskForm() {
           <Label htmlFor="date">Data de inicio da tarefa</Label>
 
           <Input 
-            className="w-auto"
             id="date" 
             type="datetime-local" 
             {...register("date")}
+            className={errors.title ? 'border-red-400 w-[200px] max-md:w-auto' : 'w-[200px] max-md:w-auto'}
           />
+
+          {errors.date && (
+            <p className="text-sm text-red-500">{errors.date.message}</p>
+          )}
         </div>
 
         <div className="space-y-2">

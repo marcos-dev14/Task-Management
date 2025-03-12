@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { useMutation } from "@tanstack/react-query"
 import { Link, useNavigate } from "react-router-dom"
 import { toast } from "sonner"
@@ -27,8 +28,10 @@ export function SignIn() {
   const {
     register,
     handleSubmit,
-    formState: { isSubmitting },
-  } = useForm<SignInForm>()
+    formState: { isSubmitting, errors },
+  } = useForm<SignInForm>({
+    resolver: zodResolver(signInForm),
+  })
 
   const { mutateAsync: LoginUser } = useMutation({
     mutationFn: signIn,
@@ -39,8 +42,11 @@ export function SignIn() {
       navigate("/") 
     },
     onError: (error) => {
-      toast.error('Ocorreu um erro ao realizar o login')
-      console.log(error)
+      if (error.response && error.response.data.message) {
+        toast.error(error.response.data.message)
+      } else {
+        toast.error('Ocorreu um erro ao realizar o login')
+      }
     }
   })
 
@@ -52,7 +58,6 @@ export function SignIn() {
       })
 
     } catch (error) {
-      toast.error('Credenciais inválidas')
       console.log(error)
     }
   }
@@ -62,6 +67,8 @@ export function SignIn() {
       navigate("/", { replace: true })
     }
   },[token])
+
+  console.log(errors)
 
   return (
     <div className="w-full h-screen flex items-center justify-center lg: px-4">
@@ -82,8 +89,13 @@ export function SignIn() {
               id="email" 
               placeholder="Digite seu e-mail" 
               type="email" 
+              className={errors.email && 'border-red-400'}
               {...register("email")}
             />
+
+            {errors.email && (
+              <p className="text-sm text-red-500">{errors.email.message}</p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -93,8 +105,13 @@ export function SignIn() {
               id="password" 
               placeholder="Digite sua senha" 
               type="password" 
+              className={errors.password && 'border-red-400'}
               {...register("password")}
             />
+
+            {errors.password && (
+              <p className="text-sm text-red-500">{errors.password.message}</p>
+            )}
           </div>
           
           <Button type="submit" disabled={isSubmitting} className="mt-6 font-heading font-semibold text-lg">

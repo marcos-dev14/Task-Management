@@ -4,7 +4,7 @@ import Cookies from "js-cookie"
 import { useQuery } from "@tanstack/react-query"
 import { Plus } from "lucide-react"
 
-import { getTasks, getTasksWithFilter } from "@/api/task"
+import { getTasks } from "@/api/task"
 
 import { Button } from "@/components/ui/button"
 import { TaskCard } from "@/components/task-card"
@@ -31,13 +31,11 @@ export function Home() {
     }
   },[token])
 
-  console.log(tasks)
-
   return (
     <div className="w-full h-screen flex items-start justify-center mx-auto py-20">
       <div className="max-w-[1240px] w-full h-full flex items-start">
         <div className="w-full max-h-screen h-full flex flex-col space-y-6 items-center px-4">
-          <div className="w-full flex items-start justify-between">
+          <div className="w-full flex items-start justify-between max-md:flex-col">
             <h1 className="text-4xl text-primary font-bold font-heading max-md:text-2xl">
               Suas tarefas
             </h1>
