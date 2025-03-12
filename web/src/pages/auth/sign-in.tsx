@@ -9,7 +9,7 @@ import Cookies from "js-cookie"
 import { useUser } from "@/context/user"
 
 import { signIn } from "@/api/sign-in"
-import type { signInForm } from "@/schemas/sign-in"
+import { signInForm } from "@/schemas/sign-in"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"

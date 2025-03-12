@@ -8,7 +8,7 @@ import Cookies from "js-cookie"
 
 import { signUp } from "@/api/sign-up"
 
-import type { signUpForm } from "@/schemas/sign-up"
+import { signUpForm } from "@/schemas/sign-up"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"

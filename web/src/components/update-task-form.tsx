@@ -133,7 +133,7 @@ export function UpdateTaskForm({ taskId }: UpdateTaskFormProps) {
             control={control}
             render={({ field }) => (
               <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <SelectTrigger className="w-full h-12">
+                <SelectTrigger  className="w-full h-12">
                   <SelectValue placeholder="Status" />
                 </SelectTrigger>
 
@@ -147,7 +147,12 @@ export function UpdateTaskForm({ taskId }: UpdateTaskFormProps) {
           />
         </div>
         
-        <Button type="submit" disabled={isSubmitting} className="mt-6 font-heading font-semibold">
+        <Button 
+          type="submit" 
+          disabled={isSubmitting} 
+          className="mt-6 font-heading font-semibold"
+          data-testid="submit-button"
+        >
           Editar tarefa
         </Button>
       </form>

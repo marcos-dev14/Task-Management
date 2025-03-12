@@ -15,8 +15,8 @@ export function ToggleTheme() {
     >
       {
         theme === "dark"
-          ? <Sun className="w-5 h-5" />
-          : <Moon className="w-5 h-5" />
+          ? <Sun className="w-5 h-5" data-testid="sun-icon" />
+          : <Moon className="w-5 h-5" data-testid="moon-icon" />
       }
     </Button>
   )

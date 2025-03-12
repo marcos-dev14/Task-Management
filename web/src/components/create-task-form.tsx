@@ -5,7 +5,7 @@ import { toast } from "sonner"
 
 import { createTask } from "@/api/task"
 
-import type { createTaskSchema } from "@/schemas/create-task"
+import { createTaskSchema } from "@/schemas/create-task"
 import { formatSendDate } from "@/utils/format-date"
 
 import { Button } from "./ui/button"
@@ -50,7 +50,7 @@ export function CreateTaskForm() {
 
       createTaskFc(formattingData)
     } catch (error) {
-      console.error(error)
+      console.error("Erro ao criar tarefa:", error)
     }
   }
 
@@ -105,7 +105,7 @@ export function CreateTaskForm() {
             control={control}
             render={({ field }) => (
               <Select onValueChange={field.onChange} defaultValue={field.value}>
-                <SelectTrigger className="w-full h-12">
+                <SelectTrigger data-testid="status-select" className="w-full h-12">
                   <SelectValue placeholder="Status" />
                 </SelectTrigger>
 
@@ -119,7 +119,12 @@ export function CreateTaskForm() {
           />
         </div>
         
-        <Button type="submit" disabled={isSubmitting} className="mt-6 font-heading font-semibold">
+        <Button 
+          type="submit" 
+          disabled={isSubmitting} 
+          className="mt-6 font-heading font-semibold"
+          data-testid="submit-button"
+        >
           Criar tarefa
         </Button>
       </form>
