@@ -41,7 +41,7 @@ cd Task-Management
 
 2. **Copie o arquivo `.env.example` para `.env` e configure as variáveis de ambiente:**
   ```sh
-  cp .env.example .env
+  cp .env-example .env
   ```
 
 3. **Suba o banco de dados com Docker:**
@@ -73,7 +73,7 @@ cd Task-Management
 
 2. **Copie o arquivo `.env.example` para `.env` e configure as variáveis de ambiente com endereço da api:**
   ```sh
-  cp .env.example .env
+  cp .env-example .env
   ```
 
 3. **Instale as dependências:**
