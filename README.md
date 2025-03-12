@@ -81,3 +81,7 @@ cd Task-Management
   npm install
   ```
 
+4. **Inicie o projeto web:**
+  ```sh
+  npm run dev
+  ```
