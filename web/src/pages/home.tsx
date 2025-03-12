@@ -34,7 +34,7 @@ export function Home() {
       <div className="max-w-[1240px] w-full h-full flex items-start">
         <div className="w-full max-h-screen h-full flex flex-col space-y-6 items-center px-4">
           <div className="w-full flex items-center justify-between">
-            <h1 className="text-4xl text-primary font-bold font-heading">
+            <h1 className="text-4xl text-primary font-bold font-heading max-md:text-2xl">
               Suas tarefas
             </h1>
 
@@ -51,11 +51,19 @@ export function Home() {
             </Dialog>
           </div>
 
-          <div className="max-w-[700px] w-full shadow bg-gray-200 px-3 py-6 rounded-sm space-y-4 s overflow-y-auto">
-            {tasks?.map((task) => (
-              <TaskCard key={task.id} task={task} />
-            ))}	
-          </div>
+          {tasks ? (
+            <div className="max-w-[700px] w-full shadow bg-gray-200 px-3 py-6 rounded-sm space-y-4 s overflow-y-auto">
+              {tasks?.map((task) => (
+                <TaskCard key={task.id} task={task} />
+              ))}	
+            </div>
+          ) : (
+            <div className="w-full h-full flex items-start justify-center mt-20">
+              <p className="text-center font-semibold text-sm text-gray-600">
+                Nenhuma tarefa cadastrada. Adicione uma agora!
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>
