@@ -31,10 +31,16 @@ export async function createTask(createTask: TaskBody) {
   }
 }
 
-export async function getTasks() {
-  const response = await api.get<TaskResponse[]>('/tasks')
+export async function getTasks(filter: string) {
+  if (filter === "no_filter") {
+    const response = await api.get<TaskResponse[]>('/tasks')
 
-  return response.data
+    return response.data
+  } else {
+    const response = await api.get<TaskResponse[]>(`/tasks?status=${filter}`)
+  
+    return response.data
+  }
 }
 
 export async function getTask(taskId: string) {
