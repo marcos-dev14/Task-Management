@@ -1,5 +1,7 @@
 # 📕 Gerenciamento de Tarefas - Teste Prático
 
+![Cover](./.github/cover.png)
+
 ## 📌 Descrição Geral
 
 Este projeto é um sistema de gerenciamento de tarefas, criado como parte do teste prático para desenvolvedor júnior. Ele contém tanto a parte do backend quanto do frontend.

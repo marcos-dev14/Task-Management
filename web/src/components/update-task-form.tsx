@@ -4,6 +4,8 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { z } from "zod"
 import { toast } from "sonner"
 
+import { useUser } from "@/context/user"
+
 import { getTask, updateTask } from "@/api/task"
 
 import { formatSendDate } from "@/utils/format-date"
@@ -23,6 +25,8 @@ interface UpdateTaskFormProps {
 }
 
 export function UpdateTaskForm({ taskId }: UpdateTaskFormProps) {
+  const { setOpenModal } = useUser()
+
   const queryClient = useQueryClient()
 
   const { data: task } = useQuery({
@@ -36,7 +40,8 @@ export function UpdateTaskForm({ taskId }: UpdateTaskFormProps) {
       toast.success("Tarefa editada com sucesso!")
       queryClient.invalidateQueries(['tasks'])
 
-      reset();
+      reset()
+      setOpenModal(false)
     },
     onError: () => toast.error("Erro ao editar a tarefa"),
   })

@@ -1,7 +1,8 @@
-import { useState } from "react"
 import { Edit2, Trash2 } from "lucide-react"
 import { toast } from "sonner"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
+
+import { useUser } from "@/context/user"
 
 import { deleteTask } from "@/api/task"
 
@@ -23,7 +24,7 @@ interface TaskCardProps {
 }
 
 export function TaskCard({ task }: TaskCardProps) {
-  const [updateTaskOpen, setUpdateTaskOpen] = useState(false)
+  const { openModal, setOpenModal } = useUser()
 
   const queryClient = useQueryClient()
 
@@ -97,7 +98,7 @@ export function TaskCard({ task }: TaskCardProps) {
         </p>
 
         <div className="flex items-center gap-3">
-          <Dialog open={updateTaskOpen} onOpenChange={setUpdateTaskOpen}>
+          <Dialog open={openModal} onOpenChange={setOpenModal}>
             <DialogTrigger asChild>
               <Button className="w-10 h-10">
                 <Edit2 className="w-4 h-4" />

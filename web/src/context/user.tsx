@@ -10,6 +10,8 @@ interface UserContextType {
   setUser: (user: UserProps | null) => void
   loginUser: (token: string) => void
   removeCookie: () => void
+  openModal: boolean
+  setOpenModal: (openModal: boolean) => void
 }
 
 interface UserProviderProps {
@@ -20,6 +22,7 @@ const UserContext = createContext<UserContextType>({} as UserContextType)
 
 export function UserProvider({ children }: UserProviderProps) {
   const [user, setUser] = useState<UserProps | null>(null)
+  const [openModal, setOpenModal] = useState(false)
 
   function loginUser(token: string) {
     const expirationDate = new Date();
@@ -42,7 +45,14 @@ export function UserProvider({ children }: UserProviderProps) {
   }, [])
 
   return (
-    <UserContext.Provider value={{ user, setUser, loginUser, removeCookie }}>
+    <UserContext.Provider value={{ 
+      user, 
+      setUser, 
+      loginUser, 
+      removeCookie,
+      openModal,
+      setOpenModal 
+    }}>
       {children}
     </UserContext.Provider>
   );

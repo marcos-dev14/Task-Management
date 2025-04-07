@@ -4,6 +4,8 @@ import Cookies from "js-cookie"
 import { useQuery } from "@tanstack/react-query"
 import { Plus } from "lucide-react"
 
+import { useUser } from "@/context/user"
+
 import { getTasks } from "@/api/task"
 
 import { Button } from "@/components/ui/button"
@@ -13,8 +15,9 @@ import { CreateTaskForm } from "@/components/create-task-form"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 export function Home() {
-  const [status, setStatus] = useState("no_filter");
-  const [createTaskOpen, setCreateTaskOpen] = useState(false)
+  const [status, setStatus] = useState("no_filter")
+
+  const { openModal, setOpenModal } = useUser()
 
   const token = Cookies.get("user_token")
 
@@ -42,7 +45,7 @@ export function Home() {
 
             <div className="flex items-center justify-center gap-2">
               <div className="flex flex-col gap-2">
-                <p className="font-normal text-sm text-gray-600">
+                <p className="font-normal text-sm text-gray-100">
                   Filtra por status
                 </p>
 
@@ -60,7 +63,7 @@ export function Home() {
                 </Select>
               </div>
 
-              <Dialog open={createTaskOpen} onOpenChange={setCreateTaskOpen}>
+              <Dialog open={openModal} onOpenChange={setOpenModal}>
                 <DialogTrigger asChild className="self-end">
                   <Button>
                     Nova Tarefa
@@ -75,7 +78,7 @@ export function Home() {
           </div>
 
           {tasks && tasks?.length >= 1 ? (
-            <div className="max-w-[700px] w-full shadow bg-gray-200 px-3 py-6 rounded-sm space-y-4 s overflow-y-auto">
+            <div className="max-w-[700px] w-full shadow bg-gray-100 px-3 py-6 rounded-sm space-y-4 s overflow-y-auto">
               {tasks?.map((task) => (
                 <TaskCard key={task.id} task={task} />
               ))}	

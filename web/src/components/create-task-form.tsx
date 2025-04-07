@@ -15,10 +15,13 @@ import { Input } from "./ui/input"
 import { Label } from "./ui/label"
 import { Textarea } from "./ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select"
+import { useUser } from "@/context/user"
 
 type CreateTaskForm = z.infer<typeof createTaskSchema>
 
 export function CreateTaskForm() {
+  const { setOpenModal } = useUser()
+
   const {
     control,
     register,
@@ -37,7 +40,8 @@ export function CreateTaskForm() {
       toast.success("Tarefa criada com sucesso!")
       queryClient.invalidateQueries(['tasks'])
 
-      reset();
+      reset()
+      setOpenModal(false)
     },
     onError: () => toast.error("Erro ao criar a tarefa"),
   })
