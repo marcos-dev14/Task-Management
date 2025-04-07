@@ -1,6 +1,6 @@
 # 📕 Gerenciamento de Tarefas - Teste Prático
 
-![Cover](./.github/cover.png)
+![Cover](./web/.github/cover.png)
 
 ## 📌 Descrição Geral
 
